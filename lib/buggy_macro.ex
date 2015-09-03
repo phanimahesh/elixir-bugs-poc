@@ -1,13 +1,13 @@
 defmodule BuggyMacro do
-  @valid_events [
-    :"something.abouttohappen",
-    :"something.happened"
-  ]
   defmacro __using__(_opts) do
     quote do
       Module.register_attribute __MODULE__, :super_awesome_hooks, [
         accumulate: true,
         persist: false
+      ]
+      @valid_events [
+        :"something.abouttohappen",
+        :"something.happened"
       ]
       import unquote(__MODULE__), only: [defhook: 2]
       @before_compile unquote(__MODULE__)
